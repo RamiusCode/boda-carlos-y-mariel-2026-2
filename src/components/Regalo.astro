@@ -1,0 +1,253 @@
+---
+// RegaloQR.astro
+---
+
+<section class="py-8 md:py-12 lg:py-16 px-4 relative overflow-hidden">
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-[#f5f9f0]/40 via-[#faf8f5]/20 to-[#f5f9f0]/40 z-0"
+  >
+  </div>
+
+  <div class="max-w-4xl mx-auto relative z-10">
+    <div class="relative">
+      <!-- 🍃 HOJA LATERAL IZQUIERDA -->
+      <div
+        class="absolute -left-8 md:-left-16 top-1/2 -translate-y-1/2 w-20 md:w-28 pointer-events-none z-0"
+        id="hoja-qr-izq"
+      >
+        <img
+          src="/imagenes/Hojas.webp"
+          alt="Hoja decorativa"
+          class="w-full h-auto object-contain transform -scale-x-100 opacity-60"
+        />
+      </div>
+
+      <!-- 🍃 HOJA LATERAL DERECHA -->
+      <div
+        class="absolute -right-8 md:-right-16 top-1/2 -translate-y-1/2 w-20 md:w-28 pointer-events-none z-0"
+        id="hoja-qr-der"
+      >
+        <img
+          src="/imagenes/Hojas.webp"
+          alt="Hoja decorativa"
+          class="w-full h-auto object-contain opacity-60"
+        />
+      </div>
+
+      <!-- 🌸 SEPARADOR SUPERIOR -->
+      <div class="flex justify-center mb-6" id="separador-qr-top">
+        <img
+          src="/imagenes/Separadores.webp"
+          alt="Separador decorativo"
+          class="w-32 md:w-40 lg:w-48 h-auto object-contain opacity-90"
+        />
+      </div>
+
+      <!-- TÍTULO -->
+      <div class="text-center mb-8" id="titulo-qr">
+        <h2
+          class="font-charm text-xl text-[#CDA85A] font-bold mb-4 tracking-wide"
+        >
+          MESA DE REGALOS
+        </h2>
+        <!-- Línea decorativa -->
+        <div class="flex items-center justify-center gap-3">
+          <div
+            class="w-16 h-[2px] bg-gradient-to-r from-transparent to-[#CDA85A]"
+          >
+          </div>
+          <div class="w-2 h-2 rounded-full bg-[#CDA85A]"></div>
+          <div
+            class="w-16 h-[2px] bg-gradient-to-l from-transparent to-[#CDA85A]"
+          >
+          </div>
+        </div>
+      </div>
+
+      <!-- MENSAJE PRINCIPAL -->
+      <div class="max-w-2xl mx-auto mb-8" id="mensaje-qr">
+        <p
+          class="font-charm text-xl text-[#2E5FA3] text-center leading-relaxed"
+        >
+          Su presencia es nuestro mejor regalo. Si desean obsequiarnos algo más,
+          con gusto aceptaremos un detalle mediante QR
+          <!-- o en sobres disponibles en el evento -->
+        </p>
+      </div>
+
+      <!-- CARD CON QR -->
+      <div
+        class="bg-white/95 backdrop-blur-sm rounded-3xl border-2 border-[#CDA85A]/30 py-8 md:py-10 px-6 md:px-10 lg:px-12 shadow-sm max-w-3xl mx-auto"
+        id="card-qr"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <!-- CÓDIGO QR -->
+          <div
+            class="flex flex-col items-center justify-center"
+            id="qr-container"
+          >
+            <div
+              class="w-72 h-72 md:w-80 md:h-80 bg-white rounded-2xl border-2 border-[#CDA85A]/20 flex items-center justify-center shadow-sm mb-4"
+            >
+              <img
+                src="/imagenes/qr.png"
+                alt="Código QR"
+                class="w-full h-full object-contain p-4"
+              />
+            </div>
+            <p class="font-charm text-xl text-[#CDA85A] font-bold">
+              Escanea el código QR
+            </p>
+          </div>
+        </div>
+
+        <!-- DECORACIÓN INFERIOR -->
+        <div class="flex justify-center mt-8" id="decoracion-qr">
+          <div class="flex gap-2">
+            <div class="w-2 h-2 rounded-full bg-[#CDA85A] opacity-60"></div>
+            <div class="w-2 h-2 rounded-full bg-[#CDA85A] opacity-80"></div>
+            <div class="w-2 h-2 rounded-full bg-[#CDA85A]"></div>
+            <div class="w-2 h-2 rounded-full bg-[#CDA85A] opacity-80"></div>
+            <div class="w-2 h-2 rounded-full bg-[#CDA85A] opacity-60"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+      gsap.set("#hoja-qr-izq", { opacity: 0, x: -50 });
+      gsap.set("#hoja-qr-der", { opacity: 0, x: 50 });
+      gsap.set("#separador-qr-top", { opacity: 0, scale: 0.8 });
+      gsap.set("#titulo-qr", { opacity: 0, scale: 0.8 });
+      gsap.set("#mensaje-qr", { opacity: 0, scale: 0.8 });
+      gsap.set("#card-qr", { opacity: 0, scale: 0.8 });
+      gsap.set("#qr-container", { opacity: 0, scale: 0.8 });
+      gsap.set("#decoracion-qr", { opacity: 0, scale: 0.8 });
+
+      ScrollTrigger.create({
+        trigger: "#separador-qr-top",
+        start: "top 85%",
+        end: "top 20%",
+        onEnter: () => {
+          gsap.to(
+            "#separador-qr-top, #titulo-qr, #mensaje-qr, #card-qr, #qr-container, #decoracion-qr",
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 1.2,
+              ease: "back.out(1.4)",
+            },
+          );
+
+          gsap.to("#hoja-qr-izq, #hoja-qr-der", {
+            opacity: 0.6,
+            x: 0,
+            duration: 1.2,
+            ease: "power3.out",
+          });
+
+          gsap.to("#qr-container > div:first-child", {
+            y: -5,
+            duration: 2.5,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: 1.2,
+          });
+
+          gsap.to("#hoja-qr-izq", {
+            y: -8,
+            rotation: -3,
+            duration: 3,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: 1.2,
+          });
+
+          gsap.to("#hoja-qr-der", {
+            y: -8,
+            rotation: 3,
+            duration: 3,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: 1.5,
+          });
+
+          gsap.to("#decoracion-qr > div > div", {
+            scale: 1.3,
+            opacity: 0.4,
+            duration: 2,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            stagger: 0.15,
+            delay: 1.5,
+          });
+        },
+        onLeaveBack: () => {
+          gsap.set("#hoja-qr-izq", { opacity: 0, x: -50 });
+          gsap.set("#hoja-qr-der", { opacity: 0, x: 50 });
+          gsap.set("#separador-qr-top", { opacity: 0, scale: 0.8 });
+          gsap.set("#titulo-qr", { opacity: 0, scale: 0.8 });
+          gsap.set("#mensaje-qr", { opacity: 0, scale: 0.8 });
+          gsap.set("#card-qr", { opacity: 0, scale: 0.8 });
+          gsap.set("#qr-container", { opacity: 0, scale: 0.8 });
+          gsap.set("#decoracion-qr", { opacity: 0, scale: 0.8 });
+        },
+      });
+    });
+  }
+</script>
+
+<style>
+  #card-qr {
+    transition: all 0.3s ease;
+  }
+
+  #card-qr:hover {
+    box-shadow: 0 25px 60px rgba(205, 168, 90, 0.25);
+    transform: translateY(-5px);
+  }
+
+  #qr-container > div:first-child {
+    transition: all 0.4s ease;
+  }
+
+  #qr-container:hover > div:first-child {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(205, 168, 90, 0.3);
+  }
+
+  #hoja-qr-izq,
+  #hoja-qr-der {
+    will-change: transform;
+  }
+
+  #separador-qr-top img {
+    transition: all 0.3s ease;
+  }
+
+  #separador-qr-top:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+
+  #decoracion-qr > div > div {
+    transition: all 0.3s ease;
+  }
+
+  #mensaje-qr p {
+    transition: color 0.3s ease;
+  }
+</style>
